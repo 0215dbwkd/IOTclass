@@ -1,0 +1,225 @@
+
+
+https://www.tinkercad.com/
+에 들어가서 계정을 만들었다
+
+디자인에 상단에 회로에 들어감
+
+만들기에서 회로 누름
+
+이번주 아두이노를 다뤄볼거임
+클릭하면 끌고올 수 있음
+
+Arduino Uno R3 배치
+
+zoomit?
+
+아두이노를 보면 라즈베리 파일과 다른게 아날로그 신호를 받을 수만 있음  아날로그 아웃을 할 수 없다.
+
+디지털 핀이 총 14개 있음 
+다 인풋 아웃풋이다
+
+프로그램을 어떻게 짜냐에 따라 다르고 어떻게 하냐에 따라 전선을 연결하면 된다
+
+LED  에는 양극 음극이 있다
+음극을 GND에 연결한다
+
+GND가 적어서 브레드 보드를 사용
+
++와 -는 가로로 연결 되어있고
+가운대는 세로로 연결 되어 있다
+
+브레드 보드 뒤를 보면 철판이 어떻게 이어졌는지 확인 가능
+
+LED 방향이 필요하다.  
+LED 구부러지거나 긴게 양극 펴져있거나 짧은 쪽이 음극
+긴게 음극일 때도 있음
+
+GND에서 선을 뽑아서 연결하는데
+선을 직각으로 보내서 다른 선과 겹치지 않게 해준다
+GND 검은색 선
+
+아두이노 장치에서 High(1)를 보내면 켜지고 Low(0)를 보내면 꺼짐
+
+오른쪽 상단에 코드가 있음
+블록을 문자로 바꾸기
+
+LED 디버깅할때 많이 사용함
+
+R누르면 회전
+
+저항을 100 옴으로 바꿈
+
+
+아날로그에 read는 존재하고 write가 존재하지 않는다 ....
+
+// C++ code
+//
+int led_r = 7; // 지역 변수
+void setup()
+{
+    pinMode(LED_BUILTIN, OUTPUT); // output LED
+	
+    pinMode(led_r, OUTPUT); // 7번을 output 모드로 함
+
+}
+void loop()
+{
+  digitalWrite(LED_BUILTIN, HIGH);
+  digitalWrite(led_r, HIGH);
+  delay(1000); // Wait for 1000 millisecond(s) 1초
+  digitalWrite(LED_BUILTIN, LOW);
+  digitalWrite(led_r, LOW);
+  delay(1000); // Wait for 1000 millisecond(s)
+}
+
+tools -> port -> COM3 (Arduino Uno)
+tools -> board -> Arduino Uno
+
+
+
+
+초록색 LED랑 빨간색 LED 번갈아가며 켜지기 
+
+// C++ code
+//
+int led_r = 7; // 지역 변수
+int led_g = 9;
+void setup()
+{
+    pinMode(LED_BUILTIN, OUTPUT); // output LED
+    pinMode(led_r, OUTPUT); // 7번을 output 모드로 함
+	pinMode(led_g, OUTPUT);
+}
+void loop()
+{
+  digitalWrite(LED_BUILTIN, HIGH); 
+  digitalWrite(led_r, HIGH); // 빨강이 켜진다
+  delay(1000); // Wait for 1000 millisecond(s) 1초
+  digitalWrite(led_g, HIGH); // 1초 후 초록이 켜진다
+  
+  digitalWrite(LED_BUILTIN, LOW);
+  digitalWrite(led_r, LOW); // 빨강이 꺼진다
+  delay(1000); // Wait for 1000 millisecond(s) 1초
+  digitalWrite(led_g, LOW); // 1초 후 초록이 꺼진다
+}
+
+교수님이 작성한거
+
+int led_r = 7;
+int led_g = 9;
+
+void setup()
+{
+  pinMode(led_g, OUTPUT);
+  pinMode(led_r, OUTPUT);
+}
+
+void loop()
+{
+  digitalWrite(led_r, HIGH);
+  delay(1000);
+  digitalWrite(led_r, LOW);
+  delay(1000);
+  digitalWrite(led_g, HIGH);
+  delay(1000);
+  digitalWrite(led_g, LOW);
+  delay(1000);
+}
+
+
+초음파 센서를 사용한다
+-----------
+! ㅇ   ㅇ !
+-----------
+  !!!!!
+
+왼쪽에 동그란 부분(TRIG)에서 초음파가 발생되고,
+오른쪽 부분(ECHO)에서 반사되어 돌아오는 초음파를 받는다
+
+핀맵은 좌측부터 VCC TRIG ECHO GND
+
+VCC -> 5V
+TRIG and ECHO -> 숫자에
+GND -> GND
+
+
+아두이노 왼쪽 위가 Serial Monitor이다.
+
+// C++ code
+// 
+#define TRIG 13 // TRIG 핀
+#define ECHO 12 // ECHO 핀
+
+int led_r = 7; // 지역 변수
+int led_g = 9;
+
+void setup()
+{
+  	Serial.begin(9600); // 괄호 안 속도, 9600에서 11만 5200까지 사용, 속도가 빠를수록 통신이 빠르다
+    pinMode(LED_BUILTIN, OUTPUT); // output LED
+    pinMode(led_r, OUTPUT); // 7번을 output 모드로 함
+	pinMode(led_g, OUTPUT);
+}
+void loop()
+{
+  Serial.println("11111");
+  digitalWrite(LED_BUILTIN, HIGH); 
+  digitalWrite(led_r, HIGH);
+  delay(1000); // Wait for 1000 millisecond(s) 1초
+  digitalWrite(led_g, HIGH);
+  
+  digitalWrite(LED_BUILTIN, LOW);
+  digitalWrite(led_r, LOW);
+  delay(1000); // Wait for 1000 millisecond(s) 1초
+  digitalWrite(led_g, LOW);
+}  //교수님이 예시로 보여준거
+
+
+
+
+// C++ code
+// 
+#define TRIG 13 // TRIG 핀
+#define ECHO 12 // ECHO 핀
+
+int led_r = 7; // 지역 변수
+int led_g = 9;
+
+void setup()
+{
+  	Serial.begin(9600); // 괄호 안 속도, 9600에서 11만 5200까지 사용, 속도가 빠를수록 통신이 빠르다
+    pinMode(LED_BUILTIN, OUTPUT); // output LED
+    pinMode(led_r, OUTPUT); // 7번을 output 모드로 함
+	pinMode(led_g, OUTPUT);
+  	pinMode(TRIG, OUTPUT);
+  	pinMode(ECHO, INPUT);
+}
+void loop()
+{
+  long duration, distance; // long 4바이트
+  
+  digitalWrite(TRIG, LOW);// 돌아왔을때 HIGH 일 수도 있으니 끄고 시작.
+  delayMicroseconds(2); // delay(2) 0.02초
+  digitalWrite(TRIG, HIGH);
+  delayMicroseconds(10); // 돌아오는 시간이 0.1초
+  digitalWrite(TRIG, LOW);
+  
+  duration = pulseIn(ECHO, HIGH); // pulseIn HIHG LOW, LOW HIGH로 변하는 시간 측정해 줌 343 m/s 속도
+  
+  distance = duration * 17 / 1000;
+  Serial.println(duration );
+  Serial.print("\nDIstance : ");
+  Serial.print(distance);
+  Serial.println(" Cm");
+    
+  digitalWrite(LED_BUILTIN, HIGH);
+  digitalWrite(led_r, HIGH);
+  delay(1000); // Wait for 1000 millisecond(s) 1초
+  digitalWrite(led_g, HIGH);
+  
+  digitalWrite(LED_BUILTIN, LOW); 
+  digitalWrite(led_r, LOW);
+  delay(1000); // Wait for 1000 millisecond(s) 1초
+  digitalWrite(led_g, LOW);
+}
