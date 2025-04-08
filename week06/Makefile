@@ -1,0 +1,2 @@
+COMPONENT=BlinkAppc
+include $(MAKERULES)
