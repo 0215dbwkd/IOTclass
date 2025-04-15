@@ -1,5 +1,5 @@
 #include <SimpleTimer.h>
-SimpleTimer timerCnt;
+SimpleTimer timerCnt; // 재사용이 가능함
 
 unsigned long loopCnt;
 
