@@ -15,31 +15,28 @@ sudo apt-get install python3-opencv
 sudo vim /et/dphys-swapfile
 
 카메라 테스트하는 파이썬 코드
-import cv2
-import sys
-import time
 
-cap = cv2.VideoCapture(0)
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-if not cap.isOpened():
-  print("camera open error")
-  exit()
+텔레그램 봇 설치하기
+pip install python-telegram-bot 00upgrade
+git clone https://github.com/python-telegram-bot/python-telegram-bot
+pip install python-telegram-bot[job-queue] --pre
 
-while true:
-  ret, image=cap.read()
-  if not ret:
-    print("frame read error")
-    break
-  cv2.imshow('CAMERA', image)
-  if cv2.waitKey(1) & 0xFF == ord('q'):
-    break
+파일을 받을 수 있다ls로 확인하면 텔레그램파일이 있을것이다
+cd python-telegram-bot/
 
-#  if cv2.waitKey(30)>0:
-#    break
-  time.sleep(10)
-  cv2.imwrite("image.jpg",image)
+examples파일로 들어간다
+cd examples/
 
-cap.release()
-cv2.destroyAllWindows()
-  
+timerbot에서 내 토큰으로 바꾼다
+vim timerbot.py로 들어가서
+application = Application.builder().token(여기에 토큰 적기).build()
+
+python timerbot.py로 실행 
+
+텔레그램에서 내가 만든 봇으로 들어가서
+/start
+/set 10
+
+을 치면 Beep 문자가 오고 10초마다 사진이 찍혀서 올라온다
+
+
