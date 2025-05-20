@@ -67,3 +67,11 @@ pip install influxdb
 ```
   sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED
 ```
+
+
+라즈베리 파이에서 데이터베이스를 만들었다면
+$ influx 들어가서  create database dust 해서 dust 데이터베이스를 만든다
+show datavases는 dust가잘 들어갔는지 확인 하는 것
+pip install influxdb 해서 설치하기
+미들 웨어를 만들것이다
+미들 웨어 이름 dustInfluxdb.py
