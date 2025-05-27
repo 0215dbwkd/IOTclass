@@ -21,8 +21,8 @@ implementation
      TestC.Temp -> Sht11Ch0C.Temperature;
      TestC.Humi -> Sht11Ch0C.Humidity;
 
-     components new llluAdcC() as lllu;
-     TestC.lllu -> lllu;
+     components new IlluAdcC() as Illu;
+     TestC.Illu -> Illu;
 
      components BatteryC;
      TestC.Battery -> BatteryC;
