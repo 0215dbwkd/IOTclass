@@ -29,7 +29,7 @@ implementation
     event void Boot.booted() {
         testMsg = (test_data_msg_t *)call RadioSend.getPayload(
             &testMsgBffr, sizeof(test_data_msg_t));
-        testMsh->srcID = TOS_NODE_ID;
+        testMsg->srcID = TOS_NODE_ID;
 
         seqNo = 0;
 
@@ -40,7 +40,7 @@ implementation
         call MilliTimer.startPeriodic(TEST_PERIOD);
     }
 
-    task void radioOn;
+    task void radioOn{};
     event void MilliTimer.fired() {
         post radioOn();
     }
@@ -75,9 +75,9 @@ task void sendTask() {
 
     task void radioOff();
     void sendDone() {
-        call Leds.led00ff();
-        call Leds.led10ff();
-        call Leds.led20ff();
+        call Leds.led0Off();
+        call Leds.led1Off();
+        call Leds.led2Off();
         post radioOff();
     }
 
