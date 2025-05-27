@@ -21,3 +21,5 @@ uint16 ->  unsing int 16bit
 TestC.nc파일까지 만들고
 Make telosb
 
+make telosb install.(노드아이디)로 퓨징
+한다음 온도 체크하면 끝
