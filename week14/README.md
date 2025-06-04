@@ -53,8 +53,13 @@ Distribution system ---- sever or Gateway
     * CSMA/CA 사용. Station에서 사용
 ```
 - MAC Data Frame
+```
+![image](https://github.com/user-attachments/assets/1273d109-ce20-4f0c-9087-a3520b9ab6de)
+```
 - 주소 체계
-
+```
+![image](https://github.com/user-attachments/assets/add23ea0-451f-44d0-a56d-b76609a70d6a)
+```
 ## MAC 계층 - 채널 접근 방식
 - CSMA-CA
 ```
@@ -131,4 +136,176 @@ Receiver           | CTS |                                      | ACK |
 ```
 - 지그비에서 정의한 프로토콜 들의 구현
 ![image](https://github.com/user-attachments/assets/654e774c-7107-411c-961f-2c967d46d141)
+```
+
+### 물리(PHY) 계층
+- IEEE 802.15.4 PHY 계층 특징
+```
+- *무선으로 직접 데이터를 주고 받는 계층*
+- *3개의 밴드에 27개의 채널 사용*
+- *DSSS (Direct Sequence Spread Spectrum) 사용*
+- 빠른 응답지원
+    * 조이스틱과 같은 빠른 응답이 필요한 기기도 지원함
+- 전력소모를 최소화하는 전력 관리
+    * 잠복기 (수면기)에서도 잘 동작
+```
+- 3개 밴드에 27개의 채널 사용
+```
+![image](https://github.com/user-attachments/assets/3b38547d-138a-4664-bc91-cc8f25f7cb56)
+```
+{참고 : 무선 랜과의 충돌}
+- 2.4GHz 대역에서 무선 랜과 겹치는 채널있음
+```
+- Channel 25, 26번은 독자적으로 겹치지 않음
+- Channel 15, 20번도 무선 랜의 채널 선택이 권고안대로 되어 있다면 겹치지 않음
+- 무선 랜이 사용하지 않는 채널 구간은 사용 가능
+![image](https://github.com/user-attachments/assets/b6d5ca60-f015-4470-b2a1-4c301b3706f0)
+```
+- DSSS (Direct Sequence Spread Spectrum)
+```
+- 직접 시퀀스 확산 스펙트럼 변조 방식
+   * 변조 : 아날로그 (반송파)에 정보를 싣는 과정
+              : 정보를 담기 위해 파형의 크기, 주파수, 위상 등을 변형
+- 양쪽 모두가 알고 있는 슈도 랜덤(pseudo random) 값인 +1 이나 -1을 데이터에 곱해서 보낸다.
+- -> 이 시퀀스는 실제 반복되는 비트보다 훨씬 길이가 길어져서 높은 주파수가 된다. -> 수신 측에서는 신호를 얻기 위해서 슈도 랜덤을 다시 곱하면 된다. (1 X 1 = 1, -1 X -1 = 1)
+-*CDMA*에서 사용되는 기술
+![image](https://github.com/user-attachments/assets/9e1a7aca-eefb-48a9-802d-f5e2ed62cfb6)
+```
+## MAC 계층
+- MAC 계층 특징
+```
+- 세 종류의 기기가 정의됨
+    * Network Coordinator (NC) : 네트워크 코디네이터
+             - 네트워크를 관리함
+    * Full Function Device (FFD) : 전기능기기
+    * Reduced Function Device (RFD) : 축소기능기기
+- MAC의 선택 사양
+    * 비콘 없는 (Non-Beacon) 통신
+              - Non-slotted CSMA-CA 통신, 수신 패킷 성공을 위해 확인 응답
+    * 비콘 (Beacon) 사용 통신
+              - Slotted CSMA-CA 통신, 슈퍼 프레임 사용
+```
+- {MAC 계층 - 지그비 기기}
+- 지그비의 CSMA-CA
+```
+- *RTS, CTS 를 사용하지 않음*
+- 비콘 없는 (Non-Beacon) 통신
+    * Non-slotted CSMA-CA 통신, 수신 패킷 성공을 위해 확인 응답
+- 비콘 (Beacon) 사용 통신
+    * Slotted CSMA-CA 통신, 슈퍼 프레임 사용
+    * 백오프 하는 시간을 슬롯 단위로 한다.
+```
+- MAC 계층 특징
+```
+- 세종류의 기기가 정의됨
+    * Network Coordinator (NC) : 네트워크 코디네이터
+           - 네트워크를 관리함
+    * Full Function Device(FFD) : 축소기능기기
+- MAC의 선택 사양
+    * 비콘 없는 (Non-Beacon) 통신
+          - Non-slotted CSMA-CA 통신, 수신 패킷 성공을 위해 확인 응답
+    * 비콘 (Beacon) 사용 통신
+          - Slotted SCMA-CA 통신, 슈퍼 프레임 사용
+```
+- {MAC 계층 - 슈퍼프레임}
+- 슈퍼 프레임 (Super Frame) 구조
+```
+- 최대 16개의 슬롯(Slot)으로 구성
+- 슈퍼프레임은 비콘 (Beacon), CAP(Contention Access Period), CFP(Contention Free Period)으로 구성
+    * 비활성화 구간이 있을 수 있음
+- 슈퍼프레임은 최소 15ms에서 최소 245초 가능
+- 항상 비콘으로 시작
+    * 비콘은 PAN 코디네이터 (네트워크 코디네이터)가 송신
+![image](https://github.com/user-attachments/assets/bec9946f-44ea-41df-85fe-c1d16d04bde1)
+```
+- CAP, 경쟁 구간
+```
+- 슬롯 단위의 시간에 맞추어 송수신
+```
+- CFP, 경쟁 없이 송수신하는 구간
+```
+- 코디네이터가 슬롯을 예약하여 지그비 기기들이 그 슬롯 시간에 송수신
+    * GTS : 예약된 슬롯을 GTS (Guaranteed Time Slot)이라 함
+- CFP는 0 ~ 7개의 슬롯까지 할당 가능
+```
+- Beacon(비콘)
+```
+- 비콘에 따라 시간 동기화를 하여 슬롯 단위 송수신 가능
+- GTS가 어느 기기에 할당되었는지 알려줌
+```
+- {참고 : 비활성화 구간}
+- 비활성화 구간
+```
+- 지그비 기기의 전력 사용을 적게 하여 기기 수명을 늘리기 위해 비활성화 구간 사용
+- 비활성화 구간에서 송수신기를 꺼둔다.
+    * 경우에 따라,  Processor의 대부분의 기능을 꺼두는 경우도 있음
+```
+- {MAC 계층 - 데이터 프레임}
+- 데이터 프레임 (Data Frame)
+```
+- 데이터의 송수긴에 사용
+- Frame control 필드 : Frame type, 주소 형식 등 Frame에  관한 정보
+- Sequence Number 필드 : Frame의 일렬 번호 -> 전송 확인하기 이해 사용
+- Payload 필드 : 실제 Data가 실리는 곳
+- Frame check Sequence 필드 : Frame의 error를 check
+![image](https://github.com/user-attachments/assets/5cc3cc8c-5c5b-4654-9960-bcd3192e211c)
+```
+- {MAC 계층 - 주소}
+- MAC 주소
+``` 
+- PAN (Personal Area Network) ID + 주소
+- PAN ID : 네트워크 주소, 코디네이터가 할당한 ID
+- Address : 2 Byte 또는 8 Byte
+    * 2 Byte : 코디네이터가 할당해준 주소
+    * 8 Byte : 처음 제작될 때 제작사가 할당해준 주소
+      * ++참고 : Byte를 Octet이라고 함
+```
+- MAC 주소 필드
+```
+- 주소 또는 PAN ID + 주소로 목적지(Destination)과 근원지(Source)를 표현
+```
+- MAc 주소 표시 방법
+```
+- 0/2는 없을 수도 있고, 2 Byte를 쓸 수도 있다는 의미
+- 대표적인 쓰임
+    * 같은 네트워크 내 : 목적지 주소(2) + 근원지 주소(2) -> 4byte
+    * 다른 네트워크 간 : 목적지 PAN ID(2) + 목적지 주소(2)
+                                 근원지 PAn ID(2) + 근원지 주소(2) -> 8 byte
+    *  다른 네트워크 간에서 코디네이터가 부여한 주소를 사용하지 않을 때: 
+           목적지 PAN ID(2) +목적지 주소(8)
+            근원지 PAN ID(2) + 근원지 주소(8) -> 20 byte
+![image](https://github.com/user-attachments/assets/58887ce0-237f-4fbf-9f30-e8211ea1e5c3)
+
+- 어떤 주소 형식인지, 어떤 것을 (0)으로 하여 사용하지 않는지는, Frame control 필드에 표시된다.
+```
+- 분산 주소 할당 기법 (Distributed Address Assignment Mechanism)
+```
+- 16 비트 어드레스 할당 방법
+- ZigBee 장치를 가진 노드가 ZigBee 네트워크에 참여할 때 이 노드의 부모 노드가 정해진 식에 따라 부여
+- ZigBee 라우터는 모두 자신의 자식 노드에게 주소 할당을 할 수 있음 -> 분산 방식
+```
+- 중앙 집중 할당 기법과의 비교
+```
+- 중앙 집중 할당 기법 : 하나의 노드가 모든 네트워크의 기기의 주소를 할당 -> 제어 메시지 (제어 트래픽)이 많이 필요
+- 분산 주소 할당 기법의 장점 : *네트워크 상의 트래픽을 줄일 수 있음*
+```
+- {MAC계층 - ZigBee 주소 할당}
+- 분산 할당 식 - 깊이에 따른 주소 할당 크기
+```
+# C(skip){d} = {1 + C(m) - R(m) - C(m) * R(m)^{L(m)-d-1}}/{1-R(m)}
+-----------------------------------------------------------------
+* C(m) : 최대 자식의 개수
+* L(m) : 네트워크 Tree 의 최대 깊이
+* R(m) : 자식으로 가질 수 있는 최대 ZigBee 라우터 개수
+* d : 현재 노드의 깊이
+* C(skip){d} : 깊이 d 노드가 가질 수 있는 주소의 부분 블록 크기
+* n : 어떤 부모 노드를 통해 네트워크에 참여한 노드의 순서
+* A(parent) : 부모노드의 주소
+* A(n) : n - 번째 엔드 디바이스의 주소
+----------------------------------------------------------------
+```
+- 분산 할당의 예
+```
+- C(m) = 3, R(m) = 3, L(m) = 3
+![image](https://github.com/user-attachments/assets/e69e89dc-b9bf-42b7-a690-342b5126c2c3)
 ```
