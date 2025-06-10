@@ -22,7 +22,7 @@ echo "setting up TinyOS on source path $TOSROOT"
 ```
   - 2
 ```
-$ vim ~/.bashrc
+$ vim ~/.bashrc           
   끝줄에 추가
   source ~/tinyos.env
 ```
